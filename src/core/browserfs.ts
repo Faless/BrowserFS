@@ -7,6 +7,7 @@ import * as buffer from 'buffer';
 import fs from './node_fs';
 import * as path from 'path';
 import {FileSystemConstructor, FileSystem, BFSOneArgCallback, BFSCallback} from './file_system';
+import {FileFlag} from './file_flag';
 import EmscriptenFS from '../generic/emscripten_fs';
 import Backends from './backends';
 import * as BFSUtils from './util';
@@ -51,6 +52,7 @@ export function BFSRequire(module: 'path'): typeof path;
 export function BFSRequire(module: 'buffer'): typeof buffer;
 export function BFSRequire(module: 'process'): typeof process;
 export function BFSRequire(module: 'bfs_utils'): typeof BFSUtils;
+export function BFSRequire(module: 'file_flags'): typeof FileFlag;
 export function BFSRequire(module: string): any;
 export function BFSRequire(module: string): any {
   switch (module) {
@@ -65,6 +67,8 @@ export function BFSRequire(module: string): any {
       return process;
     case 'bfs_utils':
       return BFSUtils;
+    case 'file_flag':
+      return FileFlag;
     default:
       return (<any> Backends)[module];
   }
